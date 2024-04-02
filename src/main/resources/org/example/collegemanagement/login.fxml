@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.collegemanagement.LoginController">
+   <bottom>
+      <AnchorPane prefHeight="432.0" prefWidth="598.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="231.0" layoutY="45.0" text="Login">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="95.0" layoutY="138.0" text="UserName">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="95.0" layoutY="213.0" prefHeight="27.0" prefWidth="92.0" text="Password">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="passwordField" promptText="Password" layoutX="216.0" layoutY="214.0" />
+            <Button fx:id="loginBtn" onAction="#loginButton" layoutX="99.0" layoutY="287.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="161.0" style="-fx-background-color: #263F73;" text="Login" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="cancelBtn" layoutX="292.0" layoutY="287.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="161.0" style="-fx-background-color: #263F73;" text="Cancel" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <TextField fx:id="usernameTextField" promptText="Username" layoutX="216.0" layoutY="139.0" />
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

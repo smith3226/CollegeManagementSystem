@@ -17,7 +17,7 @@
                   <Font name="Gill Sans MT Bold" size="22.0" />
                </font>
             </Label>
-            <Label layoutX="95.0" layoutY="138.0" text="UserName">
+            <Label layoutX="95.0" layoutY="138.0" text="StudentID">
                <font>
                   <Font size="18.0" />
                </font>
@@ -38,7 +38,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="usernameTextField" promptText="Username" layoutX="216.0" layoutY="139.0" />
+            <TextField fx:id="studentIDTextField" promptText="StudentID" layoutX="216.0" layoutY="139.0" />
          </children>
       </AnchorPane>
    </bottom>

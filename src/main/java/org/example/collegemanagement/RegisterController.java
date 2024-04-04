@@ -88,19 +88,25 @@ public class RegisterController {
             preparedStatement.setString(6, email);
 
             int rowsInserted = preparedStatement.executeUpdate();
-            return rowsInserted > 0;
+            if (rowsInserted > 0) {
+                main.showLoginPage(); //showing login page
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+
+        return false;
     }
 
     // Method to generate a unique six-digit student ID
     private String generateStudentId() {
         // Generate a random six-digit number
         Random random = new Random();
-        int randomNumber = random.nextInt(900000) + 100000; // Range from 100000 to 999999
-        return String.valueOf(randomNumber);
+        int student_id = random.nextInt(900000) + 100000; // Range from 100000 to 999999
+        String studentId = "N" + student_id;
+        return studentId;
     }
 
     // Method to show an alert dialog

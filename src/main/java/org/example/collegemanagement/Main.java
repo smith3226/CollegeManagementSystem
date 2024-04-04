@@ -70,6 +70,26 @@ public class Main extends Application {
         }
     }
 
+    //loading profile page
+    //method to show profilepage
+    public void showProfilePage(String studentId) {
+        try {
+            FXMLLoader profileLoader = new FXMLLoader(getClass().getResource("profile.fxml"));
+            Parent root = profileLoader.load();
+
+            //passing user ID or username to the profile controller
+            ProfileController profileController = profileLoader.getController();
+            profileController.setStudentId(studentId);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static void main(String[] args) {
         launch();
     }

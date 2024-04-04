@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Label?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.collegemanagement.CourseController">
+
+    <center>
+        <VBox prefHeight="569.0" prefWidth="559.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label alignment="CENTER" prefHeight="93.0" prefWidth="517.0" style="-fx-background-color: #263F73;" text="COURSES" textFill="WHITE">
+                    <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label text="Select at least three courses" style="-fx-text-fill: red;" />
+            </children>
+            <Pane prefHeight="445.0" prefWidth="525.0">
+                <children>
+                    <CheckBox fx:id="DBMS" layoutX="76.0" layoutY="45.0" mnemonicParsing="false" text="DATABASE PROGRAMMING USING SQL" />
+                    <CheckBox fx:id="JAVA" layoutX="76.0" layoutY="81.0" mnemonicParsing="false" text="JAVA PROGRAMMING" />
+                    <CheckBox fx:id="dsa" layoutX="76.0" layoutY="164.0" mnemonicParsing="false" text="DATA STRUCTURE AND DESIGN PATTERNS" />
+                    <CheckBox fx:id="requirement" layoutX="76.0" layoutY="216.0" mnemonicParsing="false" text="REQUIREMENT ANALYSIS" />
+                    <CheckBox fx:id="dataanalytics" layoutX="76.0" layoutY="279.0" mnemonicParsing="false" text="DATA ANALYTICS" />
+                    <CheckBox fx:id="OS" layoutX="76.0" layoutY="119.0" mnemonicParsing="false" text="OPERATING SYSTEM" />
+                </children>
+            </Pane>
+            <HBox prefHeight="107.0" prefWidth="525.0">
+                <children>
+                    <Button fx:id="submitBtn" onAction="#handleButtonClick"  alignment="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="229.0" style="-fx-background-color: #263F73;" text="Submit Application" textFill="WHITE">
+                        <font>
+                            <Font name="Arial" size="15.0" />
+                        </font>
+                        <HBox.margin>
+                            <Insets left="200.0" top="20.0" />
+                        </HBox.margin>
+                    </Button>
+                </children>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

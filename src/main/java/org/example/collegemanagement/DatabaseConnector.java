@@ -1,12 +1,10 @@
 package org.example.collegemanagement;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
 public class DatabaseConnector {
-
-    //database fields
 
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/collegeconsole";
     private static final String USERNAME = "root";
@@ -24,6 +22,17 @@ public class DatabaseConnector {
         }
         return connection;
     }
+
+    // Method to test the database connection
+    public static void testConnection() {
+        try (Connection connection = getConnection()) {
+            System.out.println("Database connection test successful.");
+        } catch (SQLException e) {
+            System.err.println("Error testing database connection: " + e.getMessage());
+        }
+    }
+
+//    public static void main(String[] args) {
+//        testConnection();
+//    }
 }
-
-

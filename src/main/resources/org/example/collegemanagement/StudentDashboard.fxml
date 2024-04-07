@@ -173,14 +173,14 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="dashCourses" editable="false" prefHeight="39.0" prefWidth="309.0" text="OS | DBMS | " GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <Label fx:id="dashCourses"  prefHeight="39.0" prefWidth="309.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <font>
                   <Font size="16.0" />
                </font>
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
-            </TextField>
+            </Label>
             <Label fx:id="dashStatus" prefHeight="39.0" prefWidth="309.0" text="Applied" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <font>
                   <Font size="16.0" />
@@ -189,27 +189,27 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Button fx:id="editBtn" onAction="#handleEditBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #263F73;" text="Edit" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="editBtn" onAction="#handleEditEmail" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #263F73;" text="Edit" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="230.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleEditBtn" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #263F73;" text="Edit" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button mnemonicParsing="false" onAction="#handleEditPhone" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #263F73;" text="Edit" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="230.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleEditBtn" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #263F73;" text="Edit" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Button mnemonicParsing="false" onAction="#handleEditAddress" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #263F73;" text="Edit" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="230.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleEditBtn" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #263F73;" text="Edit" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Button mnemonicParsing="false" onAction="#handleEditPassport" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #263F73;" text="Edit" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="230.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleEditBtn" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #263F73;" text="Edit" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Button mnemonicParsing="false" onAction="#handleEditDOB" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #263F73;" text="Edit" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="230.0" />
                </GridPane.margin>

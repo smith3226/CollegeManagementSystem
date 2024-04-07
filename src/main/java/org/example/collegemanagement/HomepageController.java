@@ -13,12 +13,12 @@ public class HomepageController {
 
     @FXML
     private void registerButtonClicked() {
-      main.showRegisterPage();
+      main.showStudentRegisterPage();
     }
 
     @FXML
     private void loginButtonClicked() {
-        main.showLoginPage();
+        main.showStudentLoginPage();
     }
 }
 

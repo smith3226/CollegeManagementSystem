@@ -35,7 +35,7 @@ public class StudentDashboardController {
     @FXML
     private TextField dashDOB;
     @FXML
-    private TextField dashCourses;
+    private Label dashCourses;
     @FXML
     private Label dashStatus;
 
@@ -98,15 +98,40 @@ public class StudentDashboardController {
 
     // Method to handle the action event when the user clicks on the "Edit" button
     @FXML
-    private void handleEditBtn(ActionEvent event) {
+    public void handleEditEmail(ActionEvent event) {
         // Enable editing of text fields
         dashEmail.setEditable(true);
-        dashPhone.setEditable(true);
-        dashAddress.setEditable(true);
-        dashPassport.setEditable(true);
-        dashDOB.setEditable(true);
-        dashCourses.setEditable(true);
     }
+    @FXML
+    private void handleEditPhone(ActionEvent event) {
+        // Enable editing of text fields
+        dashPhone.setEditable(true);
+    }
+    @FXML
+    private void handleEditAddress(ActionEvent event) {
+        // Enable editing of text fields
+        dashAddress.setEditable(true);
+    }
+    @FXML
+    private void handleEditPassport(ActionEvent event) {
+        // Enable editing of text fields
+        dashPassport.setEditable(true);
+    }
+    @FXML
+    private void handleEditDOB(ActionEvent event) {
+        // Enable editing of text fields
+        dashDOB.setEditable(true);
+    }
+
+
+
+
+
+
+
+
+      //  dashCourses.setEditable(true);
+
 
     // Method to handle the action event when the user clicks on the "Save" button
     @FXML

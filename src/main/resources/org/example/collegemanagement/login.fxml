@@ -1,45 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.collegemanagement.LoginController">
-   <bottom>
-      <AnchorPane prefHeight="432.0" prefWidth="598.0" BorderPane.alignment="CENTER">
+<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.collegemanagement.LoginController">
+   <items>
+      <ImageView fitHeight="439.0" fitWidth="370.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@./Login.jpg" />
+         </image>
+      </ImageView>
+      <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Label layoutX="231.0" layoutY="45.0" text="Login">
+            <Label alignment="CENTER" contentDisplay="CENTER" text="WELCOME TO HUMBER COLLEGE">
+               <VBox.margin>
+                  <Insets left="30.0" top="30.0" />
+               </VBox.margin>
                <font>
-                  <Font name="Gill Sans MT Bold" size="22.0" />
+                  <Font name="Cambria" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="95.0" layoutY="138.0" text="StudentID">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="95.0" layoutY="213.0" prefHeight="27.0" prefWidth="92.0" text="Password">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="passwordField" promptText="Password" layoutX="216.0" layoutY="214.0" />
-            <Button fx:id="loginBtn" onAction="#loginButton" layoutX="99.0" layoutY="287.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="161.0" style="-fx-background-color: #263F73;" text="Login" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="cancelBtn" layoutX="292.0" layoutY="287.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="161.0" style="-fx-background-color: #263F73;" text="Cancel" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-            <TextField fx:id="studentIDTextField" promptText="StudentID" layoutX="216.0" layoutY="139.0" />
+            <HBox prefHeight="74.0" prefWidth="396.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="396.0" text="LOGIN" textFill="#263f73">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <GridPane prefHeight="236.0" prefWidth="396.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label prefHeight="65.0" prefWidth="208.0" text="UserID">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <Label prefHeight="65.0" prefWidth="208.0" text="Password" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="studentIDTextField" prefHeight="42.0" prefWidth="198.0" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <PasswordField fx:id="passwordField" prefHeight="42.0" prefWidth="198.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </PasswordField>
+                  <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#loginButton" prefHeight="59.0" prefWidth="198.0" style="-fx-background-color: #263f73;" text="LOGIN" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+            </GridPane>
          </children>
-      </AnchorPane>
-   </bottom>
-</BorderPane>
+      </VBox>
+   </items>
+</SplitPane>

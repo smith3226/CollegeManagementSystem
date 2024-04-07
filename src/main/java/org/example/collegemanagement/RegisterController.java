@@ -89,7 +89,7 @@ public class RegisterController {
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
-                main.showLoginPage(); //showing login page
+                main.showStudentLoginPage(); //showing login page
                 return true;
             }
         } catch (SQLException e) {

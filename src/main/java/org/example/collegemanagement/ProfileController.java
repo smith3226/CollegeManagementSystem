@@ -16,8 +16,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Map;
 
 public class ProfileController {
+
 
     //reference to keep trakc of curent page
     private Stage profileStage;
@@ -77,16 +79,21 @@ public class ProfileController {
 
     //intake
     @FXML
-    private CheckBox fall;
+    public RadioButton fall;
 
     @FXML
-    private CheckBox winter;
+    public RadioButton winter;
 
     @FXML
-    private CheckBox summer;
+    public RadioButton summer;
 
     @FXML
-    private CheckBox summ25;
+    public RadioButton summ25;
+
+    @FXML
+    public ToggleGroup intakeToggleGroup;
+
+
 
     // Setting userId
     public void setStudentId(String studentId) {
@@ -98,6 +105,17 @@ public class ProfileController {
     // Fetch student data from DB
     @FXML
     private void initialize() {
+
+        // Restrict the DatePicker to show only past dates
+        dobDisplay.setValue(LocalDate.now());
+        dobDisplay.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(date.isAfter(LocalDate.now()));
+            }
+        });
+
+
         if (studentId != null && !studentId.isEmpty()) {
             // Fetch student data from the database based on the ID
             try (Connection connection = DatabaseConnector.getConnection();
@@ -151,7 +169,8 @@ public class ProfileController {
 
     // Validation method for date of birth
     private boolean isValidDateOfBirth(LocalDate dob) {
-        return dob.plusYears(50).isAfter(LocalDate.now());
+        LocalDate currentDate = LocalDate.now();
+        return !dob.isAfter(currentDate) && dob.plusYears(50).isAfter(currentDate);
     }
 
     // Validation method for GPA
@@ -167,6 +186,12 @@ public class ProfileController {
     //Handling the students details to the dashboard
     @FXML
     private void handleNext(ActionEvent event) {
+//        RadioButton selectedRadioButton = (RadioButton) intakeToggleGroup.getSelectedToggle();
+//        if (selectedRadioButton == null) {
+//            showAlert(Alert.AlertType.ERROR, "Error", "Please select one intake option.");
+//            return;
+//        }
+
         if (studentId == null || studentId.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Error", "Student ID is null or empty.");
             return;
@@ -330,6 +355,21 @@ public class ProfileController {
                 showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while loading the courses page.");
             }
         }
+
+        //method to set student details
+    public void setStudentDetails(Map<String, String> studentDetails) {
+        // Set the student details in the UI components
+        if (studentDetails != null) {
+            displayName.setText(studentDetails.get("full_name"));
+            addressDisplay.setText(studentDetails.get("address"));
+            phoneDisplay.setText(studentDetails.get("phone"));
+            emailDisplay.setText(studentDetails.get("email"));
+            passportDisplay.setText(studentDetails.get("passportNo"));
+            dobDisplay.setValue(LocalDate.parse(studentDetails.get("dob")));
+            emergDisplay.setText(studentDetails.get("emergencyContact"));
+            degreeDisplay.setValue(studentDetails.get("previousDegree"));
+        }
+    }
 
 
 

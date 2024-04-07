@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -17,9 +20,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="1048.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.collegemanagement.ProfileController">
    <top>
       <VBox prefHeight="67.0" prefWidth="1048.0" style="-fx-background-color: #263F73;" BorderPane.alignment="CENTER">
@@ -32,8 +32,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Text>
-             <Text fx:id="bannerName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
-                   text="Student Profile - Smith Dias (N01607819)" wrappingWidth="500">
+             <Text fx:id="bannerName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Profile - Smith Dias (N01607819)" wrappingWidth="500">
                <font>
                   <Font size="16.0" />
                </font>
@@ -169,17 +168,20 @@
                </font>
             </Label>
          </children>
-            <Pane prefHeight="445.0" prefWidth="525.0">
+          <Pane prefHeight="445.0" prefWidth="525.0">
+              <children>
+                  <RadioButton fx:id="summer" layoutX="33.0" layoutY="23.0" text="Summer 2024: Starts in May" selected="true" toggleGroup="$intakeToggleGroup" />
+                  <RadioButton fx:id="fall" layoutX="33.0" layoutY="66.0" text="Fall 2024: Starts in September" toggleGroup="$intakeToggleGroup" />
+                  <RadioButton fx:id="winter" layoutX="33.0" layoutY="153.0" text="Winter 2025: Starts in September" toggleGroup="$intakeToggleGroup" />
+                  <RadioButton fx:id="summ25" layoutX="33.0" layoutY="200.0" text="Summer 2025: Starts in May" toggleGroup="$intakeToggleGroup" />
+
+
+              </children>
+          </Pane>
+
+          <HBox prefHeight="107.0" prefWidth="525.0">
                <children>
-                  <CheckBox fx:id="fall" layoutX="76.0" layoutY="45.0" mnemonicParsing="false" text=" Fall 2024: Starts in September" />
-                  <CheckBox fx:id="summer" layoutX="76.0" layoutY="81.0" mnemonicParsing="false" text="Summer 2024: Start in May" />
-                  <CheckBox fx:id="winter" layoutX="76.0" layoutY="164.0" mnemonicParsing="false" text="Winter 2024: Starts in the January" />
-                  <CheckBox fx:id="summ25" layoutX="76.0" layoutY="216.0" mnemonicParsing="false" text="Summer 2025: Start in May" />
-               </children>
-            </Pane>
-            <HBox prefHeight="107.0" prefWidth="525.0">
-               <children>
-                  <Button fx:id="submitBtn" onAction="#handleNext" alignment="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="229.0" style="-fx-background-color: #263F73;" text="Next" textFill="WHITE">
+                  <Button fx:id="submitBtn" alignment="CENTER" mnemonicParsing="false" onAction="#handleNext" prefHeight="36.0" prefWidth="229.0" style="-fx-background-color: #263F73;" text="Next" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>

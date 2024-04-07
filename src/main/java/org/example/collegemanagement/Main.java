@@ -2,8 +2,10 @@ package org.example.collegemanagement;
 
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 
@@ -17,17 +19,34 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
-        showHomePage();
+        showCombinedSignInPage();
+
+    }
+
+
+    //first the user will be shown combine sign in page so that he can select his role
+    public void showCombinedSignInPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("combinesignin.fxml"));
+            Parent root = loader.load();
+            CombineSignInController controller = loader.getController();
+            controller.setMain(this);
+            primaryStage.setTitle("Welcome");
+            primaryStage.setScene(new Scene(root, 800, 500));
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //function to show the homepage
-    public void showHomePage(){
+    public void showHomePageForStudent(){
         try {
             FXMLLoader homePageLoader = new FXMLLoader(Main.class.getResource("home.fxml"));
             Parent root = homePageLoader.load();
             HomepageController homepageController = homePageLoader.getController();
             homepageController.setMain(this);
-            primaryStage.setTitle("Homepage");
+            primaryStage.setTitle("Homepage - Student");
             primaryStage.setScene(new Scene(root, 800, 500));
             primaryStage.show();
             primaryStage.setResizable(false);
@@ -37,8 +56,10 @@ public class Main extends Application {
     }
 
 
+
+    //this login page is for student
     //function to show login page
-    public void showLoginPage() {
+    public void showStudentLoginPage() {
         try {
             FXMLLoader loginLoader = new FXMLLoader(Main.class.getResource("login.fxml"));
             Parent root = loginLoader.load();
@@ -55,7 +76,7 @@ public class Main extends Application {
 
 
     //loading and showing register page
-    public void showRegisterPage() {
+    public void showStudentRegisterPage() {
         try {
             FXMLLoader registerloader = new FXMLLoader(Main.class.getResource("register.fxml"));
             Parent root = registerloader.load();
@@ -88,6 +109,11 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
+
+
+
+
 
 
     public static void main(String[] args) {

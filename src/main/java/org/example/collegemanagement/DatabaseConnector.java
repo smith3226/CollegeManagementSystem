@@ -123,4 +123,144 @@ public class DatabaseConnector {
             return false;
         }
     }
+
+
+    //method to get all the RegistrarDetails
+    public static ResultSet getAllRegistrarDetails() throws SQLException {
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = getConnection();
+            String query = "SELECT * FROM registrar_details";
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            // Close resources in the finally block
+            if (statement != null) {
+                statement.close();
+            }
+            // Don't close connection here to allow result set usage
+        }
+        return resultSet;
+    }
+
+
+    //method to get All the registrars from database
+    public static List<Map<String, String>> getAllRegistrars() {
+        List<Map<String, String>> registrars = new ArrayList<>();
+        String query = "SELECT * FROM registrar_details";
+
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            while (resultSet.next()) {
+                Map<String, String> registrar = new HashMap<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = metaData.getColumnName(i);
+                    String columnValue = resultSet.getString(i);
+                    registrar.put(columnName, columnValue);
+                }
+                registrars.add(registrar);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return registrars;
+
+    }
+
+
+
+    //method to get total number of registrar
+    public static int getTotalRegistrarEntries() {
+        int count = 0;
+        String query = "SELECT COUNT(*) FROM registrar_details";
+
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+
+    //method to delete Registrar
+    public static boolean deleteRegistrar(String registrarID) {
+        String sql = "DELETE FROM registrar_details WHERE register_id = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, registrarID);
+            int rowsDeleted = stmt.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    //method to check if there is empty field in the database
+    public static boolean allFieldsPresent(String studentID) throws SQLException {
+        String query = "SELECT * FROM students WHERE student_id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, studentID);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    // Check if all required fields are present in the result set
+                    String fullName = resultSet.getString("full_name");
+                    String email = resultSet.getString("email");
+                    String address = resultSet.getString("address");
+                    String phone = resultSet.getString("phone");
+                    String emergencyContact = resultSet.getString("emergency_contact");
+                    String passportNo = resultSet.getString("passport_number");
+                    String dob = resultSet.getString("dob");
+                    String previousDegree = resultSet.getString("degree");
+                    String coursesApplied = resultSet.getString("selected_courses");
+                    String status = resultSet.getString("status");
+
+                    // Check if any required field is null or empty
+                    if (fullName != null && !fullName.isEmpty() &&
+                            email != null && !email.isEmpty() &&
+                            address != null && !address.isEmpty() &&
+                            phone != null && !phone.isEmpty() &&
+                            emergencyContact != null && !emergencyContact.isEmpty() &&
+                            passportNo != null && !passportNo.isEmpty() &&
+                            dob != null && !dob.isEmpty() &&
+                            previousDegree != null && !previousDegree.isEmpty() &&
+                            coursesApplied != null && !coursesApplied.isEmpty() &&
+                            status != null && !status.isEmpty()) {
+                        // All required fields are present
+                        return true;
+                    }
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            return false;
+        }
+    }
 }
+
+
+
+

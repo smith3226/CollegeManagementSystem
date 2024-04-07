@@ -116,14 +116,8 @@
                                 </HBox>
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="10" GridPane.columnSpan="2">
                                     <children>
-                                        <ComboBox fx:id="selectedView"  onAction="#handleComboBoxSelection" prefWidth="119.0" style="-fx-border-color: -box-fill; -fx-border-width: 0 0 1 0;" visibleRowCount="5">
-                                            <items>
-                                                <FXCollections fx:factory="observableArrayList">
-                                                    <String fx:value="Student Info" />
-                                                    <String fx:value="Registrar Info" />
-                                                </FXCollections>
-                                            </items>
-                                        </ComboBox>
+                                        <Button fx:id="deleteSelectedButton" onAction="#deleteSelectedRow" contentDisplay="TEXT_ONLY" text="Delete Student" />
+                                        <Button fx:id="toggleViewButton" onAction="#toggleView" text="Show Registrar View" />
                                     </children>
                                     <styleClass>
                                         <String fx:value="col-xs-12" />

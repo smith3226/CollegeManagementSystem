@@ -1,11 +1,17 @@
 package org.example.collegemanagement;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 import org.example.collegemanagement.DatabaseConnector;
 import org.example.collegemanagement.Main;
+
+import java.io.IOException;
 import java.util.Random;
 
 import java.sql.Connection;
@@ -89,7 +95,8 @@ public class RegisterController {
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
-                main.showStudentLoginPage(); //showing login page
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Student registered successfully.");
+                loadFXML("Login Page" ,"login.fxml");
                 return true;
             }
         } catch (SQLException e) {
@@ -117,6 +124,29 @@ public class RegisterController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    @FXML
+    private void loginTextClicked(){
+        loadFXML("Login Page","login.fxml");
+    }
+
+
+    private void loadFXML(String title ,String fxmlFile) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+                Parent root = loader.load();
+                Stage currentStage = (Stage) fullNameField.getScene().getWindow(); // Get the reference to the current stage
+                currentStage.close();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root, 800, 500));
+                stage.setResizable(false);
+                stage.setTitle(title);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
     public void setMain(Main main) {
         this.main = main;

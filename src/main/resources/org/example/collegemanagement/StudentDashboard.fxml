@@ -59,7 +59,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <children>
-                  <Button fx:id="saveBtn" onAction="#handleSaveBtn" mnemonicParsing="false" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: #263F73;" text="Save" textFill="WHITE">
+                  <Button fx:id="saveBtn" onAction="#handleSubmitBtn" mnemonicParsing="false" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: #263F73;" text="Submit Application" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>

@@ -6,9 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.collegemanagement.DatabaseConnector;
 
@@ -17,8 +15,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class StudentDashboardController {
+
 
     public String studentId;
 
@@ -135,32 +135,48 @@ public class StudentDashboardController {
 
     // Method to handle the action event when the user clicks on the "Save" button
     @FXML
-    private void handleSaveBtn(ActionEvent event) {
-        try (Connection connection = DatabaseConnector.getConnection()) {
-            String query = "UPDATE students SET email = ?, phone = ?, address = ?, passport_number = ?, dob = ?, selected_courses = ? WHERE student_id = ?";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                // Check if data has changed
-                if (!isDataChanged()) {
-                    showAlert(Alert.AlertType.ERROR, "Error", "No changes detected. Please update the data first.");
-                    return;
+    private void handleSubmitBtn(ActionEvent event) {
+        Dialog<ButtonType> confirmationDialog = new Dialog<>();
+        confirmationDialog.setTitle("Confirmation");
+        confirmationDialog.setHeaderText("Submit Application");
+        confirmationDialog.setContentText("Are you sure you want to submit the application?");
+
+        // Add buttons to the dialog
+        ButtonType confirmButton = new ButtonType("Submit");
+        ButtonType cancelButton = new ButtonType("Cancel");
+        confirmationDialog.getDialogPane().getButtonTypes().addAll(confirmButton, cancelButton);
+
+        // Show the dialog and wait for user input
+        Optional<ButtonType> result = confirmationDialog.showAndWait();
+
+        // Process user input
+        if (result.isPresent() && result.get() == confirmButton) {
+            try (Connection connection = DatabaseConnector.getConnection()) {
+                String query = "UPDATE students SET email = ?, phone = ?, address = ?, passport_number = ?, dob = ?, selected_courses = ? WHERE student_id = ?";
+                try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                    // Check if data has changed
+                    if (!isDataChanged()) {
+                        showAlert(Alert.AlertType.ERROR, "Error", "No changes detected. Please update the data first.");
+                        return;
+                    }
+
+                    // Set parameter values for the prepared statement
+                    preparedStatement.setString(1, dashEmail.getText());
+                    preparedStatement.setString(2, dashPhone.getText());
+                    preparedStatement.setString(3, dashAddress.getText());
+                    preparedStatement.setString(4, dashPassport.getText());
+                    preparedStatement.setString(5, dashDOB.getText());
+                    preparedStatement.setString(6, dashCourses.getText());
+                    preparedStatement.setString(7, studentId);
+
+                    // Execute the update query
+                    preparedStatement.executeUpdate();
+                    showAlert(Alert.AlertType.INFORMATION, "Success", "Data updated successfully!");
                 }
-
-                // Set parameter values for the prepared statement
-                preparedStatement.setString(1, dashEmail.getText());
-                preparedStatement.setString(2, dashPhone.getText());
-                preparedStatement.setString(3, dashAddress.getText());
-                preparedStatement.setString(4, dashPassport.getText());
-                preparedStatement.setString(5, dashDOB.getText());
-                preparedStatement.setString(6, dashCourses.getText());
-                preparedStatement.setString(7, studentId);
-
-                // Execute the update query
-                preparedStatement.executeUpdate();
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Data updated successfully!");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while updating student data.");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while updating student data.");
         }
     }
 
@@ -191,5 +207,9 @@ public class StudentDashboardController {
 
         // Show the courses page stage
         coursesStage.show();
+    }
+
+    public void initData(String studentID) {
+        this.studentId = studentID;
     }
 }

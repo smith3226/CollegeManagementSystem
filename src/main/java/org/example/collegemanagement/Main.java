@@ -40,20 +40,20 @@ public class Main extends Application {
     }
 
     //function to show the homepage
-    public void showHomePageForStudent(){
-        try {
-            FXMLLoader homePageLoader = new FXMLLoader(Main.class.getResource("home.fxml"));
-            Parent root = homePageLoader.load();
-            HomepageController homepageController = homePageLoader.getController();
-            homepageController.setMain(this);
-            primaryStage.setTitle("Homepage - Student");
-            primaryStage.setScene(new Scene(root, 800, 500));
-            primaryStage.show();
-            primaryStage.setResizable(false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void showHomePageForStudent(){
+//        try {
+//            FXMLLoader homePageLoader = new FXMLLoader(Main.class.getResource("home.fxml"));
+//            Parent root = homePageLoader.load();
+//            HomepageController homepageController = homePageLoader.getController();
+//            homepageController.setMain(this);
+//            primaryStage.setTitle("Homepage - Student");
+//            primaryStage.setScene(new Scene(root, 800, 500));
+//            primaryStage.show();
+//            primaryStage.setResizable(false);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
 
@@ -76,39 +76,39 @@ public class Main extends Application {
 
 
     //loading and showing register page
-    public void showStudentRegisterPage() {
-        try {
-            FXMLLoader registerloader = new FXMLLoader(Main.class.getResource("register.fxml"));
-            Parent root = registerloader.load();
-            RegisterController registerController = registerloader.getController();
-            registerController.setMain(this);
-            primaryStage.setTitle("Register");
-            primaryStage.setScene(new Scene(root, 800, 500));
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("The error is " + e.getMessage());
-        }
-    }
+//    public void showStudentRegisterPage() {
+//        try {
+//            FXMLLoader registerloader = new FXMLLoader(Main.class.getResource("register.fxml"));
+//            Parent root = registerloader.load();
+//            RegisterController registerController = registerloader.getController();
+//            registerController.setMain(this);
+//            primaryStage.setTitle("Register");
+//            primaryStage.setScene(new Scene(root, 800, 500));
+//            primaryStage.show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            System.out.println("The error is " + e.getMessage());
+//        }
+//    }
 
     //loading profile page
     //method to show profilepage
-    public void showProfilePage(String studentId) {
-        try {
-            FXMLLoader profileLoader = new FXMLLoader(getClass().getResource("profile.fxml"));
-            Parent root = profileLoader.load();
-
-            //passing user ID or username to the profile controller
-            ProfileController profileController = profileLoader.getController();
-            profileController.setStudentId(studentId);
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void showProfilePage(String studentId) {
+//        try {
+//            FXMLLoader profileLoader = new FXMLLoader(getClass().getResource("profile.fxml"));
+//            Parent root = profileLoader.load();
+//
+//            //passing user ID or username to the profile controller
+//            ProfileController profileController = profileLoader.getController();
+//            profileController.setStudentId(studentId);
+//
+//            Stage stage = new Stage();
+//            stage.setScene(new Scene(root));
+//            stage.show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
 

@@ -104,6 +104,8 @@
                                                 <Insets left="15.0" />
                                             </padding>
                                         </TextField>
+                                        <Button fx:id="deleteSelectedButton" onAction="#deleteSelectedRow" contentDisplay="TEXT_ONLY" text="Delete Student" />
+
                                     </children>
                                     <styleClass>
                                         <String fx:value="col-xs-12" />

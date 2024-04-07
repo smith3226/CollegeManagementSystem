@@ -19,7 +19,6 @@ public class ActionsTableCell<S> extends TableCell<S, Void> {
     private final Button editButton;
     private final Button addButton;
 
-    private final Button deleteButton;
 
     //private final String studentID;
     private final TableView<S> tableView;
@@ -29,12 +28,11 @@ public class ActionsTableCell<S> extends TableCell<S, Void> {
         this.tableView = tableView;
         this.editButton = new Button("Edit");
         this.addButton = new Button("Add");
-        this.deleteButton = new Button("Delete");
+
 
         // Define actions for the buttons
         editButton.setOnAction(event -> handleEdit());
         addButton.setOnAction(event -> handleAdd());
-        deleteButton.setOnAction(event -> handleDelete());
     }
 
     private void handleEdit() {
@@ -65,20 +63,7 @@ public class ActionsTableCell<S> extends TableCell<S, Void> {
         }
     }
 
-    private void handleDelete(){
-        int rowIndex = getIndex();
-        if (rowIndex >= 0) {
-            S rowData = tableView.getItems().get(rowIndex);
-            if (rowData instanceof Map) {
-                Map<?, ?> mapData = (Map<?, ?>) rowData;
-                Object studentID = mapData.get("student_id"); // Assuming "student_id" is the key for student ID
-                if (studentID != null) {
-                    // Call the delete method in the controller
-                    ((RegistrarDashboardController) tableView.getScene().getUserData()).handleDelete(studentID.toString());
-                }
-            }
-        }
-    }
+
 
     private void openProfilePage(String studentID) {
         try {
@@ -150,7 +135,7 @@ public class ActionsTableCell<S> extends TableCell<S, Void> {
         if (empty) {
             setGraphic(null);
         } else {
-            setGraphic(new HBox(editButton, addButton , deleteButton));
+            setGraphic(new HBox(editButton, addButton));
         }
     }
 }

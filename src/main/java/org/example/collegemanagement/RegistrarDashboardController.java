@@ -1,6 +1,7 @@
 package org.example.collegemanagement;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +12,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -63,7 +68,7 @@ public class RegistrarDashboardController  {
         initializeColumns();
         refreshTable();
         setSceneUserData();
-       // updateEntriesLabel();
+        updateEntriesLabel();
     }
 
     private void setSceneUserData() {
@@ -163,24 +168,64 @@ public class RegistrarDashboardController  {
         alert.showAndWait();
     }
 
-    public void handleDelete(String studentID) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirm Deletion");
-        alert.setHeaderText(null);
-        alert.setContentText("Are you sure you want to delete this student?");
-        Optional<ButtonType> confirmationResult = alert.showAndWait();
+    //method to delete the student selected Data
+    @FXML
+    private Button deleteSelectedButton;
 
-        if (confirmationResult.isPresent() && confirmationResult.get() == ButtonType.OK) {
-            // Attempt to delete the student from the database
-            boolean deleted = DatabaseConnector.deleteStudent(studentID);
+    @FXML
+    private void deleteSelectedRow() {
+        Map<String, String> selectedRow = studentData.getSelectionModel().getSelectedItem();
+        if (selectedRow != null) {
+            String studentID = selectedRow.get("student_id");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Deletion");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete this student?");
+            Optional<ButtonType> confirmationResult = alert.showAndWait();
 
-            if (deleted) {
-                // Remove the student from the table
-                studentData.getItems().removeIf(row -> row.get("student_id").equals(studentID));
-                showAlert(Alert.AlertType.INFORMATION, "Student Deleted", "The student has been successfully deleted.");
-            } else {
-                showAlert(Alert.AlertType.ERROR, "Error", "Failed to delete student.");
+            if (confirmationResult.isPresent() && confirmationResult.get() == ButtonType.OK) {
+                // Attempt to delete the student from the database
+                boolean deleted = DatabaseConnector.deleteStudent(studentID);
+
+                if (deleted) {
+                    // Remove the selected row from the table
+                    ObservableList<Map<String, String>> items = studentData.getItems();
+                    items.remove(selectedRow);
+                    showAlert(Alert.AlertType.INFORMATION, "Student Deleted", "The student has been successfully deleted.");
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Error", "Failed to delete student.");
+                }
             }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a student to delete.");
         }
     }
+
+
+    //methdod to show total number of entries in the database
+    private void updateEntriesLabel() {
+        try {
+            int totalEntries = getTotalEntries();
+            entries.setText("Showing " + totalEntries + " entries.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            entries.setText("Showing 1 to 10 of ? entries.");
+        }
+    }
+
+    private int getTotalEntries() throws SQLException {
+        int count = 0;
+        try (Connection connection = DatabaseConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) FROM students");
+             ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+        }
+        return count;
+    }
+
+
+
+
 }

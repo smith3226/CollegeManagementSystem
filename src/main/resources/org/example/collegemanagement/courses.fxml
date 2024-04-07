@@ -38,7 +38,7 @@
             </Pane>
             <HBox prefHeight="107.0" prefWidth="525.0">
                 <children>
-                    <Button fx:id="submitBtn" onAction="#handleButtonClick"  alignment="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="229.0" style="-fx-background-color: #263F73;" text="Submit Application" textFill="WHITE">
+                    <Button fx:id="submitBtn" onAction="#handleButtonClick"  alignment="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="229.0" style="-fx-background-color: #263F73;" text="Next" textFill="WHITE">
                         <font>
                             <Font name="Arial" size="15.0" />
                         </font>

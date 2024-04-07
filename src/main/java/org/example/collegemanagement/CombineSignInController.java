@@ -38,7 +38,7 @@ public class CombineSignInController {
 
         switch (selectedOption) {
             case "Student":
-                loginPage = "login.fxml";
+                loginPage = "home.fxml";
                 break;
             case "Admin":
                 loginPage = "adminLogin.fxml";
@@ -54,7 +54,7 @@ public class CombineSignInController {
         }
     }
 
-    //method for loading login page
+    //method to load FXML file
 
     private void loadLoginPage(String fxmlFile) {
         try {

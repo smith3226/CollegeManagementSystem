@@ -1,6 +1,7 @@
 package org.example.collegemanagement;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,6 +63,7 @@ public class AdminDashboardController {
 
     @FXML
     public void initialize() {
+        System.out.println("Student Data: " + studentData.getItems());
         actionsColumn.setCellFactory(col -> new ActionsTableCell<>(studentData));
         initializeColumns();
         refreshTable();
@@ -109,6 +111,7 @@ public class AdminDashboardController {
 
     private void refreshTable() {
         List<Map<String, String>> students = DatabaseConnector.getAllStudents();
+
         studentData.getItems().addAll(students);
     }
 
@@ -175,75 +178,91 @@ public class AdminDashboardController {
 
     //showing dashboard views
     @FXML
-    private ComboBox selectedView;
-    private Stage studentDashboardStage;
-    private Stage registrarDashboardStage;
+    private Button toggleViewButton;
+
+    private boolean isStudentView = true;
     @FXML
-    public void handleComboBoxSelection(ActionEvent event) {
-        String selectedItem =(String)selectedView.getValue();
-        if (selectedItem != null) {
-            switch (selectedItem) {
-                case "Student Info":
-                    if (studentDashboardStage == null) {
-                        redirectToStudentDashboard();
-                    } else {
-                    if (!studentDashboardStage.isShowing()) {
-                        studentDashboardStage.show();
-                    } else {
-                        studentDashboardStage.toFront();
-                    }
-                }
-
-                    break;
-                case "Registrar Info":
-                    if (registrarDashboardStage == null) {
-                        redirectToRegistrarDashboard();
-                    }else {
-                    if (!registrarDashboardStage.isShowing()) {
-                        registrarDashboardStage.show();
-                    } else {
-                        registrarDashboardStage.toFront();
-                    }
-                }
-                    break;
-                default:
-                    break;
-            }
+    public void toggleView(ActionEvent event) {
+        // Toggle between student and registrar views
+        isStudentView = !isStudentView;
+        updateToggleButton();
+        // You can also switch the views here
+        if (isStudentView) {
+            // Show student view
+            redirectToStudentView();
+        } else {
+            // Show registrar view
+            redirectToRegistrarView();
         }
     }
 
-
-    private void redirectToStudentDashboard() {
+    private void redirectToRegistrarView() {
         try {
-            System.out.println("Redirecting to student dashboard...");
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("adminDashboardStudentView.fxml"));
-            Parent root = loader.load();
-            studentDashboardStage = new Stage();
-            studentDashboardStage.setScene(new Scene(root));
-            studentDashboardStage.setTitle("Admin Dashboard - Student View");
-            studentDashboardStage.show();
-            studentDashboardStage.setOnCloseRequest(event -> studentDashboardStage = null);
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while loading the student dashboard.");
-        }
-    }
-
-    private void redirectToRegistrarDashboard() {
-        try {
-            System.out.println("Redirecting to registrar dashboard...");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("adminDashboardRegistrarView.fxml"));
             Parent root = loader.load();
-            registrarDashboardStage = new Stage();
-            registrarDashboardStage.setScene(new Scene(root));
-            registrarDashboardStage.setTitle("Admin Dashboard - Registrar View");
-            registrarDashboardStage.show();
-            // Listener to set registrarDashboardStage to null when closed
-            registrarDashboardStage.setOnCloseRequest(event -> registrarDashboardStage = null);
+            Stage registrarStage  = new Stage();
+            registrarStage .setScene(new Scene(root));
+            registrarStage .setTitle("Admin Dashboard - Registrar View");
+            registrarStage .show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while loading the registrar dashboard.");
+            showAlert(Alert.AlertType.ERROR, "Error","An error occurred while loading the registrar view");
+        }
+    }
+
+
+    //method to redirect to  student view
+    private void redirectToStudentView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("adminDashboardStudentView.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Admin Dashboard - Student View");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error","An error occurred while loading the student view");
+        }
+    }
+
+    //toggle button to view the student and registrar button
+    private void updateToggleButton() {
+        if (isStudentView) {
+            toggleViewButton.setText("Show Registrar View");
+        } else {
+            toggleViewButton.setText("Show Student View");
+        }
+    }
+
+
+    //method to delete student
+    @FXML
+    private void deleteSelectedRow() {
+        Map<String, String> selectedRow = studentData.getSelectionModel().getSelectedItem();
+        if (selectedRow != null) {
+            String studentID = selectedRow.get("student_id");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Deletion");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete this student?");
+            Optional<ButtonType> confirmationResult = alert.showAndWait();
+
+            if (confirmationResult.isPresent() && confirmationResult.get() == ButtonType.OK) {
+                // Attempt to delete the student from the database
+                boolean deleted = DatabaseConnector.deleteStudent(studentID);
+
+                if (deleted) {
+                    // Remove the selected row from the table
+                    ObservableList<Map<String, String>> items = studentData.getItems();
+                    items.remove(selectedRow);
+                    showAlert(Alert.AlertType.INFORMATION, "Student Deleted", "Student has been successfully deleted.");
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Error", "Failed to delete student.");
+                }
+            }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a student to delete.");
         }
     }
 

@@ -21,7 +21,7 @@
 
 <?import javafx.scene.control.TableView?>
 <?import javafx.collections.FXCollections?>
-<StackPane fx:id="root" prefHeight="437.0" prefWidth="484.0" style="-fx-background-color: white; -fx-border-color: -light-gray-2; -fx-border-width: 0 1 0 0;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.collegemanagement.RegistrarDashboardController" >
+<StackPane fx:id="root" prefHeight="437.0" prefWidth="484.0" style="-fx-background-color: white; -fx-border-color: -light-gray-2; -fx-border-width: 0 1 0 0;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.collegemanagement.AdminDashboardRegistrarView" >
     <padding>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
@@ -55,7 +55,7 @@
                             <children>
                                 <HBox alignment="CENTER_LEFT" minHeight="50.0" spacing="5.0">
                                     <children>
-                                        <Button fx:id="btnSearch"  contentDisplay="GRAPHIC_ONLY" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Advanced Search">
+                                        <Button fx:id="btnSearch" onAction="#searchRegistrarByID"  contentDisplay="GRAPHIC_ONLY" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Advanced Search">
                                             <styleClass>
                                                 <String fx:value="round" />
                                                 <String fx:value="btn-warning" />
@@ -67,7 +67,7 @@
                                                 <Tooltip text="Advanced Search" />
                                             </tooltip>
                                         </Button>
-                                        <Button   cache="true" cacheHint="QUALITY" contentDisplay="GRAPHIC_ONLY" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="round" text="Adicionar">
+                                        <Button fx:id="addRegistrar" onAction="#addNewRegistrar"  cache="true" cacheHint="QUALITY" contentDisplay="GRAPHIC_ONLY" minHeight="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="round" text="Adicionar">
                                             <graphic>
                                                 <SVGPath content="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" mouseTransparent="true" style="-fx-fill: white;" />
                                             </graphic>
@@ -95,7 +95,7 @@
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="9">
                                     <children>
-                                        <TextField fx:id=""  prefHeight="40.0" promptText="Search" translateX="-12.0" HBox.hgrow="ALWAYS">
+                                        <TextField fx:id="registrarIdSearch" onAction="#searchRegistrarByID" prefHeight="40.0" promptText="Search" translateX="-12.0" HBox.hgrow="ALWAYS">
                                             <styleClass>
                                                 <String fx:value="field-outlined" />
                                                 <String fx:value="clearable-field" />
@@ -104,6 +104,7 @@
                                                 <Insets left="15.0" />
                                             </padding>
                                         </TextField>
+                                        <Button fx:id="deleteSelectedButton" onAction="#deleteSelectedRow" contentDisplay="TEXT_ONLY" text="Delete Registrar" />
                                     </children>
                                     <styleClass>
                                         <String fx:value="col-xs-12" />
@@ -116,14 +117,7 @@
                                 </HBox>
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="10" GridPane.columnSpan="2">
                                     <children>
-                                        <ComboBox fx:id="selectedView"  onAction="#handleComboBoxSelection" prefWidth="119.0" style="-fx-border-color: -box-fill; -fx-border-width: 0 0 1 0;" visibleRowCount="5">
-                                            <items>
-                                                <FXCollections fx:factory="observableArrayList">
-                                                    <String fx:value="Student Info" />
-                                                    <String fx:value="Registrar Info" />
-                                                </FXCollections>
-                                            </items>
-                                        </ComboBox>
+                                        <Button fx:id="showStudentViewButton" onAction="#redirectToStudentView" text="Show Student View" />
                                     </children>
                                     <styleClass>
                                         <String fx:value="col-xs-12" />
@@ -146,9 +140,9 @@
                     <children>
                         <HBox spacing="5.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <TableView fx:id="studentData" editable="true" HBox.hgrow="ALWAYS">
+                                <TableView fx:id="registrarData" editable="true" HBox.hgrow="ALWAYS">
                                     <columns>
-                                        <TableColumn fx:id="registrarID" text="Student ID" />
+                                        <TableColumn fx:id="registrarID" text="Registrar ID" />
                                         <TableColumn fx:id="fullName" text="Full Name"/>
                                         <TableColumn fx:id="email" text="Email"/>
                                         <TableColumn fx:id="phone" maxWidth="6000.0" text="Phone" />

@@ -156,5 +156,14 @@ public class CourseController {
             showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while loading the dashboard.");
         }
     }
+
+
+//method to set the selected courses
+@FXML
+private Label selectedCoursesLabel;
+    public void setSelectedCourses(String selectedCourses) {
+        selectedCoursesLabel.setText(selectedCourses);
+
+    }
 }
 

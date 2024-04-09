@@ -12,7 +12,8 @@
 
 
 <?import javafx.scene.control.TextField?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.collegemanagement.StudentDashboardController">
+<?import javafx.scene.image.ImageView?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.collegemanagement.StudentDashboardController" stylesheets="styles.css">
    <top>
       <HBox prefHeight="61.0" prefWidth="638.0" BorderPane.alignment="CENTER">
          <children>
@@ -24,6 +25,7 @@
                   <Insets />
                </HBox.margin>
             </Label>
+
          </children>
       </HBox>
    </top>
@@ -189,6 +191,7 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
+
             <Button fx:id="editBtn" onAction="#handleEditEmail" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #263F73;" text="Edit" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="230.0" />
@@ -214,6 +217,16 @@
                   <Insets left="230.0" />
                </GridPane.margin>
             </Button>
+
+
+            <ImageView fx:id="profilePhoto" preserveRatio="true" fitWidth="50" fitHeight="50" styleClass="profile-photo" GridPane.rowIndex="7" GridPane.columnIndex="1">
+               <HBox.margin>
+                  <Insets right="10" />
+               </HBox.margin>
+            </ImageView>
+
+
+
          </children>
       </GridPane>
    </bottom>

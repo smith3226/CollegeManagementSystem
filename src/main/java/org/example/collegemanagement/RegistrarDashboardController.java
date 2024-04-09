@@ -1,15 +1,22 @@
 package org.example.collegemanagement;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.codec.PngImage;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -223,6 +230,78 @@ public class RegistrarDashboardController  {
             }
         }
         return count;
+    }
+
+
+    @FXML
+    private void generateReport(ActionEvent event) {
+        // Create a new document
+        Document document = new Document();
+
+        // Show file chooser dialog to choose where to save the PDF
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Report");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+
+        // Provide an initial file name
+        fileChooser.setInitialFileName("Student_Report_Registrar.pdf");
+
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        if (file != null) {
+            try {
+                PdfWriter.getInstance(document, new FileOutputStream(file));
+                document.open();
+
+                Image logo = PngImage.getImage("C:/Users/smith/JavaProgramming/CollegeManagement/src/main/java/org/example/collegemanagement/Humber_Logo.png");
+                logo.scaleToFit(100, 100);
+
+                // Add logo to pdf
+                document.add(logo);
+
+                // Header
+                Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
+                Paragraph header = new Paragraph("HUMBER COLLEGE", headerFont);
+                header.setAlignment(Element.ALIGN_CENTER);
+                header.setSpacingAfter(10);
+                document.add(header);
+
+                // Title
+                Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK);
+                Paragraph title = new Paragraph("Registrar Report -List of all Students Registered", titleFont);
+                title.setAlignment(Element.ALIGN_CENTER);
+                title.setSpacingAfter(10);
+                document.add(title);
+
+                // Student List
+                for (Map<String, String> student : studentData.getItems()) {
+                    for (Map.Entry<String, String> entry : student.entrySet()) {
+                        // Capitalize field names
+                        String fieldName = entry.getKey().toUpperCase();
+                        // Add field name and value
+                        document.add(new Chunk(fieldName + ": ", FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.BLACK)));
+                        document.add(new Chunk(entry.getValue() + "\n", FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.BLACK)));
+                    }
+                    // Add separator between students
+                    document.add(new Chunk("\n---------------------------------------------------\n"));
+                }
+
+                // Footer
+                Font footerFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.GRAY);
+                Paragraph footer = new Paragraph("@CopyRight 2024 Humber College\nIntended to use by College Staff only", footerFont);
+                footer.setAlignment(Element.ALIGN_CENTER);
+                footer.setSpacingBefore(10);
+                document.add(footer);
+
+                showAlert(Alert.AlertType.INFORMATION, "Report Generated", "PDF report generated successfully.");
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Failed to generate PDF report: " + e.getMessage());
+            } finally {
+                if (document != null) {
+                    document.close();
+                }
+            }
+        }
     }
 
 

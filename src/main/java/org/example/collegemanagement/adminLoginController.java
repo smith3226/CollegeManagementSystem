@@ -1,14 +1,14 @@
 package org.example.collegemanagement;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -82,23 +82,49 @@ public class adminLoginController {
 
     //method to show adminDashboard
     public void showAdminDashboard() {
-        try {
-            // Load the admin dashboard FXML file
-            FXMLLoader adminLoader = new FXMLLoader(getClass().getResource("adminDashboardStudentView.fxml"));
-            Parent root = adminLoader.load();
+        // Show loading animation
+        StackPane root = new StackPane();
+        // Create a ProgressIndicator as a loading animation
+        ProgressIndicator loadingIndicator = new ProgressIndicator();
+        loadingIndicator.setMaxSize(100, 100);
 
-            // Create a new stage for the admin dashboard
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Admin Dashboard");
+        // Add the loading animation to the StackPane
+        root.getChildren().add(loadingIndicator);
 
-            // Show the admin dashboard
-            stage.show();
+        Stage loadingStage = new Stage();
+        loadingStage.setScene(new Scene(root, 1000, 1000));
+        loadingStage.setTitle("Loading");
+        loadingStage.show();
 
+        // Load the admin dashboard in a separate thread to prevent freezing UI
+        new Thread(() -> {
+            try {
+                // Simulate a delay for demonstration purposes (replace with actual loading code)
+                Thread.sleep(1000);
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+                // Load the admin dashboard FXML file
+                FXMLLoader adminLoader = new FXMLLoader(getClass().getResource("adminDashboardStudentView.fxml"));
+                Parent adminRoot = adminLoader.load();
+
+                // Update UI on JavaFX Application Thread
+                Platform.runLater(() -> {
+                    // Create a new stage for the admin dashboard
+                    Stage adminStage = new Stage();
+                    adminStage.setScene(new Scene(adminRoot));
+                    adminStage.setTitle("Admin Dashboard");
+
+                    // Show the admin dashboard
+                    adminStage.show();
+
+                    // Close the loading overlay
+                    loadingStage.close();
+                });
+            } catch (IOException | InterruptedException e) {
+                // Handle exceptions
+                e.printStackTrace();
+            }
+        }).start();
+
     }
 }
 

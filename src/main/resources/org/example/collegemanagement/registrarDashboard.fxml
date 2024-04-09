@@ -105,6 +105,7 @@
                                             </padding>
                                         </TextField>
                                         <Button fx:id="deleteSelectedButton" onAction="#deleteSelectedRow" contentDisplay="TEXT_ONLY" text="Delete Student" />
+                                        <Button fx:id="generateReport" onAction="#generateReport"  text="Download Report" />
 
                                     </children>
                                     <styleClass>

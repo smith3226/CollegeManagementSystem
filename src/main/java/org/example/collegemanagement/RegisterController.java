@@ -131,6 +131,7 @@ public class RegisterController {
     }
 
 
+
     private void loadFXML(String title ,String fxmlFile) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));

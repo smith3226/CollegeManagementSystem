@@ -87,7 +87,7 @@
       </GridPane>
       <HBox prefHeight="136.0" prefWidth="676.0">
          <children>
-            <Text fx:id="loginText" fill="#2700e8" strokeType="OUTSIDE" onMouseClicked="#loginTextClicked" strokeWidth="0.0" text="Already have an account        Login">
+            <Text fx:id="loginText" fill="#2700e8" strokeType="OUTSIDE" onMouseClicked="#loginTextClicked" strokeWidth="0.0" text="Already have an Account Login">
                <HBox.margin>
                   <Insets left="50.0" top="30.0" />
                </HBox.margin>

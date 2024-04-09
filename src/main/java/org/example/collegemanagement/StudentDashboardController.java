@@ -7,6 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.example.collegemanagement.DatabaseConnector;
 
@@ -155,10 +157,10 @@ public class StudentDashboardController {
                 String query = "UPDATE students SET email = ?, phone = ?, address = ?, passport_number = ?, dob = ?, selected_courses = ? WHERE student_id = ?";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                     // Check if data has changed
-                    if (!isDataChanged()) {
-                        showAlert(Alert.AlertType.ERROR, "Error", "No changes detected. Please update the data first.");
-                        return;
-                    }
+//                    if (!isDataChanged()) {
+//                        showAlert(Alert.AlertType.ERROR, "Error", "No changes detected. Please update the data first.");
+//                        return;
+//                    }
 
                     // Set parameter values for the prepared statement
                     preparedStatement.setString(1, dashEmail.getText());
@@ -172,6 +174,24 @@ public class StudentDashboardController {
                     // Execute the update query
                     preparedStatement.executeUpdate();
                     showAlert(Alert.AlertType.INFORMATION, "Success", "Data updated successfully!");
+
+                    // Load the FinalDashboard FXML file
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("studentFinalDashboard.fxml"));
+                    Parent finalDashboardRoot = loader.load();
+
+                    // Create a new stage for the FinalDashboard
+                    Stage finalDashboardStage = new Stage();
+                    finalDashboardStage.setScene(new Scene(finalDashboardRoot));
+                    finalDashboardStage.setTitle("Student Dashboard");
+
+                    // Close the current dashboard's stage
+                    Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    currentStage.close();
+
+                    // Show the FinalDashboard stage
+                    finalDashboardStage.show();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -197,6 +217,9 @@ public class StudentDashboardController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("courses.fxml"));
         Parent root = loader.load();
 
+        CourseController coursesController =  loader.getController();
+        coursesController.setSelectedCourses(dashCourses.getText());
+
         // Create a new stage for the courses page
         Stage coursesStage = new Stage();
         coursesStage.setScene(new Scene(root));
@@ -211,5 +234,22 @@ public class StudentDashboardController {
 
     public void initData(String studentID) {
         this.studentId = studentID;
+    }
+
+
+    //method to show the photo
+    @FXML
+    public  ImageView profilePhoto;
+
+    // Method to set the selected photo to the ImageView
+    public  void setProfilePhoto(Image image) {
+        if (image != null) {
+            System.out.println("Image received: " + image.getUrl());
+            System.out.println(image);
+            System.out.println(image.isError());
+            profilePhoto.setImage(image);
+        } else {
+            System.out.println("Image is null");
+        }
     }
 }

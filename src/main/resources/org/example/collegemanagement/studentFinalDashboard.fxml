@@ -12,6 +12,7 @@
 
 
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.collegemanagement.studentFinalDashboard">
     <top>
         <HBox prefHeight="61.0" prefWidth="638.0" BorderPane.alignment="CENTER">
@@ -24,6 +25,7 @@
                         <Insets />
                     </HBox.margin>
                 </Label>
+
             </children>
         </HBox>
     </top>

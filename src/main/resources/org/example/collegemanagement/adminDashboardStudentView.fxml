@@ -116,8 +116,11 @@
                                 </HBox>
                                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="10" GridPane.columnSpan="2">
                                     <children>
-                                        <Button fx:id="deleteSelectedButton" onAction="#deleteSelectedRow" contentDisplay="TEXT_ONLY" text="Delete Student" />
-                                        <Button fx:id="toggleViewButton" onAction="#toggleView" text="Show Registrar View" />
+                                        <HBox spacing="10">
+                                            <Button fx:id="generateReport" onAction="#generateReport"  text="Download Report" />
+                                            <Button fx:id="deleteSelectedButton" onAction="#deleteSelectedRow" contentDisplay="TEXT_ONLY" text="Delete Student" />
+                                            <Button fx:id="toggleViewButton" onAction="#toggleView" text="Show Registrar View" />
+                                        </HBox>
                                     </children>
                                     <styleClass>
                                         <String fx:value="col-xs-12" />

@@ -24,7 +24,7 @@
                         <Font size="16.0" />
                     </font>
                 </Label>
-                <Label text="Select at least three courses" style="-fx-text-fill: red;" />
+                <Label fx:id="selectedCoursesLabel" text="Select at least three courses" style="-fx-text-fill: red;" />
             </children>
             <Pane prefHeight="445.0" prefWidth="525.0">
                 <children>

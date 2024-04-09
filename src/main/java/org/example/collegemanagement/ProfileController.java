@@ -7,10 +7,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -368,6 +372,44 @@ public class ProfileController {
             dobDisplay.setValue(LocalDate.parse(studentDetails.get("dob")));
             emergDisplay.setText(studentDetails.get("emergencyContact"));
             degreeDisplay.setValue(studentDetails.get("previousDegree"));
+        }
+    }
+
+
+    //method to upload photo of the student
+    @FXML
+    private Label photoStatusLabel;
+
+    @FXML
+    private Button uploadPhotoButton;
+
+    @FXML
+    private void handlePhotoUpload(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Profile Photo");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+        File selectedFile = fileChooser.showOpenDialog(uploadPhotoButton.getScene().getWindow());
+        if (selectedFile != null) {
+            try {
+                // Convert the selected file to URL and create an Image
+                Image image = new Image(selectedFile.toURI().toURL().toString());
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentDashboard.fxml"));
+                Parent parent = loader.load();
+                StudentDashboardController dashboardController = loader.getController();
+                // Set the selected photo to the StudentDashboard
+                dashboardController.setProfilePhoto(image);
+                // Handle the selected file (e.g., upload to server or display)
+                System.out.println("Selected photo: " + selectedFile.getName());
+                photoStatusLabel.setText("Photo selected: " + selectedFile.getName());
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            photoStatusLabel.setText("No photo selected.");
         }
     }
 

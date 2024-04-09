@@ -111,6 +111,22 @@ public class LoginController {
         }
     }
 
+
+    //method to load register page
+    @FXML
+    private void registerButtonClicked() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("register.fxml"));
+        Parent root = loader.load();
+        RegisterController registerController = loader.getController();
+
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+        // Close the current login window
+        ((Stage) studentIDTextField.getScene().getWindow()).close();
+    }
+
     // Method to show alert
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

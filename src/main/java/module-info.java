@@ -13,8 +13,8 @@ module org.example.collegemanagement {
 
     //java.sql module
     requires java.sql;
-
-
+    requires org.apache.pdfbox;
+    requires itextpdf;
 
 
     opens org.example.collegemanagement to javafx.fxml;
